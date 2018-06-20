@@ -6,7 +6,8 @@ Scope: Create Petroleum Engineering functions commonly used for python
 
 """
 def porosity_sim(vol_pore= 0, vol_bulk=1.0, vol_matrix=0.7):
-    """Returns the simple porosity of volume given the bulk and matrix volume."""
+    """Returns the simple porosity of volume given the bulk and matrix volume,
+     or the user can give the pore volume and bulk volume."""
     if vol_pore > 0:
         return float(vol_pore/vol_bulk)
     else:
