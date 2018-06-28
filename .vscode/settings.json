@@ -1,3 +1,14 @@
 {
+    "workbench.iconTheme": "vscode-icons",
+    "git.confirmSync": false,
+    "editor.renderIndentGuides": true,
+    "workbench.colorTheme": "Visual Studio Dark",
+    "editor.cursorStyle": "underline",
+    "editor.renderWhitespace": "none",
+    "scm.alwaysShowProviders": true,
+    "git.autofetch": true,
+    "python.autoComplete.addBrackets": true,
+    "editor.insertSpaces": true,
+    "extensions.showRecommendationsOnlyOnDemand": true,
     "python.linting.enabled": true
 }
