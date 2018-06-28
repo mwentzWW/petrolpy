@@ -35,7 +35,11 @@ def stoiip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, oil_
     porosity (fraction), average water saturation (fraction), and the oil formation volume factor (RB/STB)."""
     return (7758*area*res_height*porosity*(1-avg_water_saturation))/oil_vol_factor
 
-#def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=1.30):
-    """Returns the estimate for stock tank oil initially in place (STB) given the area (acres), reservoir height (ft),
-    porosity (fraction), average water saturation (fraction), and the oil formation volume factor (RB/STB)."""
-    #return (7758*area*res_height*porosity*(1-avg_water_saturation))/oil_vol_factor
+def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=1.30):
+    """Returns the estimate for gas initially in place (SCF) given the area (acres), reservoir height (ft),
+    porosity (fraction), average water saturation (fraction), and the gas formation volume factor (RCF/SCF)."""
+    return (43560*area*res_height*porosity*(1-avg_water_saturation))/gas_vol_factor
+
+def mcf_to_boe(mcf=0, conversion_factor=6000):
+    """Converts mcf to barrels of oil equivalent using the standard 6000 mcf/boe conversion factor."""
+    return (mcf/conversion_factor)
