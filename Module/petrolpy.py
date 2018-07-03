@@ -49,7 +49,7 @@ def hyperbolic_type_curve(b_factor=0.8,initial_prod=0, di_factor=0.15, time=10):
     The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
     returns the type_curve as a list."""
     production = []
-    for x in time:
+    for x in range(0, time + 1):
         q_time = (initial_prod)/((1 + b_factor*di_factor*x)**(1/b_factor))
         production.append(q_time)
     return production
@@ -60,7 +60,7 @@ def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
     returns the type_curve as a list."""
     import math
     production = []
-    for x in time:
+    for x in range(0, time + 1):
         q_time = (initial_prod)*math.exp(-di_factor*x)
         production.append(q_time)
     return production
