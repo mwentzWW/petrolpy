@@ -26,7 +26,7 @@ def porosity_by_densitylog(den_matrix=2.654, den_fluid=1.1, den_bulk=2.0):
 
 def porosity_by_soniclog(delt_log=144, delt_matrix=55.5, delt_fluid=189):
     """Returns the porosity given the average delta t (micro-sec/ft) of an interval, 
-    fluid delta t, and the matrix delta t. The fuid is usually mud filtrate (189 micro-sec/ft). 
+    fluid delta t, and the matrix delta t. The fluid is usually mud filtrate (189 micro-sec/ft). 
     Sandstone delta t ~ 55.5 or 51.0, Limestone delta t ~ 47.5, Dolomite delta t ~ 43.5."""
     return (delt_log-delt_matrix)/(delt_fluid-delt_matrix)
 
