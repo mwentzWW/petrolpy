@@ -43,3 +43,24 @@ def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vo
 def mcf_to_boe(mcf=0, conversion_factor=6000):
     """Converts mcf to barrels of oil equivalent using the standard 6000 mcf/boe conversion factor."""
     return (mcf/conversion_factor)
+
+def hyperbolic_type_curve(b_factor=0.8,initial_prod=0, di_factor=0.15, time=10):
+    """Creates a type curve using Arp's equation for hyperbolic decline. Make sure the units for production and time are the same.
+    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
+    returns the type_curve as a list."""
+    production = []
+    for x in time:
+        q_time = (initial_prod)/((1 + b_factor*di_factor*x)**(1/b_factor))
+        production.append(q_time)
+    return production
+
+def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
+    """Creates a type curve using Arp's equation for exponential decline. Make sure the units for production and time are the same.
+    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
+    returns the type_curve as a list."""
+    import math
+    production = []
+    for x in time:
+        q_time = (initial_prod)*math.exp(-di_factor*x)
+        production.append(q_time)
+    return production
