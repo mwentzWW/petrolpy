@@ -47,7 +47,7 @@ def mcf_to_boe(mcf=0, conversion_factor=6000):
 def hyperbolic_type_curve(b_factor=0.8,initial_prod=0, di_factor=0.15, time=10):
     """Creates a type curve using Arp's equation for hyperbolic decline. Make sure the units for production and time are the same.
     The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
-    returns the type_curve as a list."""
+    returns the type curve as a list."""
     production = []
     for x in range(0, time + 1):
         q_time = (initial_prod)/((1 + b_factor*di_factor*x)**(1/b_factor))
@@ -57,7 +57,7 @@ def hyperbolic_type_curve(b_factor=0.8,initial_prod=0, di_factor=0.15, time=10):
 def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
     """Creates a type curve using Arp's equation for exponential decline. Make sure the units for production and time are the same.
     The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
-    returns the type_curve as a list."""
+    returns the type curve as a list."""
     import math
     production = []
     for x in range(0, time + 1):
