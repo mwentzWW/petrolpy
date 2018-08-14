@@ -2,7 +2,7 @@ import petrolpy
 import matplotlib
 import matplotlib.pyplot as plt
 
-type_curve = petrolpy.hyperbolic_type_curve(b_factor=.832, initial_prod=590, di_factor=0.009, time=365)
+type_curve = petrolpy.hyperbolic_type_curve(b_factor=1.2, initial_prod=590, di_factor=0.00876, time=365)
 
 axes = plt.subplot()
 
