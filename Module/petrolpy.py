@@ -64,3 +64,10 @@ def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
         q_time = (initial_prod)*math.exp(-di_factor*x)
         production.append(q_time)
     return production
+
+def calc_gas_vol_factor(z_value=1.0,temp=125, pressure=500):
+    """Calculates the gas formation volume factor Bg from the gas compressibility factor z, the reservoir temperature (F), 
+    and the reservoir pressure (psia). The calculated Bg units are rcf/scf"""
+    temp_rankin = temp + 459.67
+    bg = 0.0282793*((z_value*temp_rankin)/pressure)
+    return bg
