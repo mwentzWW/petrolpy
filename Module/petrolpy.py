@@ -35,7 +35,7 @@ def stoiip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, oil_
     porosity (fraction), average water saturation (fraction), and the oil formation volume factor (RB/STB)."""
     return (7758*area*res_height*porosity*(1-avg_water_saturation))/oil_vol_factor
 
-def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=1.30):
+def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=0.00533):
     """Returns the estimate for gas initially in place (SCF) given the area (acres), reservoir height (ft),
     porosity (fraction), average water saturation (fraction), and the gas formation volume factor (RCF/SCF)."""
     return (43560*area*res_height*porosity*(1-avg_water_saturation))/gas_vol_factor
@@ -71,3 +71,8 @@ def calc_gas_vol_factor(z_value=1.0,temp=125, pressure=500):
     temp_rankin = temp + 459.67
     bg = 0.0282793*((z_value*temp_rankin)/pressure)
     return bg
+
+def calc_drainage_area(gas_produced=2.5, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=0.00533, recoveryfactor=0.65):
+    """Returns the estimate for drainage area (Acres) given the gas produced (BCF), reservoir height (ft),
+    porosity (fraction), average water saturation (fraction), the gas formation volume factor (RCF/SCF), and the recovery factor."""
+    return ((gas_produced*10**(9))*gas_vol_factor*recoveryfactor)/(43560*res_height*porosity*(1-avg_water_saturation))
