@@ -1,7 +1,6 @@
 from petrolpy import calc_drainage_area
 from petrolpy import calc_gas_vol_factor
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
 
 gas_produced = float(input('Enter the cumulative production in BCF: '))
@@ -73,13 +72,9 @@ for a in recoveriesS:
     areas.append(a)
 
 # Gas formation volume factor sensitivity
-bg_lowz = calc_gas_vol_factor(z_value=.3,temp=125, pressure=res_pressure)
-bg_midz = calc_gas_vol_factor(z_value=.6,temp=125, pressure=res_pressure)
-bg_highz = calc_gas_vol_factor(z_value=.8,temp=125, pressure=res_pressure)
-
-print("The low Z factor Bg estimate is: {} rcf/scf".format(bg_lowz))
-print("The mid Z factor Bg estimate is: {} rcf/scf".format(bg_midz))
-print("The high Z factor Bg estimate is: {} rcf/scf".format(bg_highz))
+bg_lowz = calc_gas_vol_factor(z_value=.3,temp=193, pressure=res_pressure)
+bg_midz = calc_gas_vol_factor(z_value=.6,temp=193, pressure=res_pressure)
+bg_highz = calc_gas_vol_factor(z_value=.8,temp=193, pressure=res_pressure)
 
 bgS.append(calc_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
 avg_water_saturation=avg_saturation, gas_vol_factor=bg_lowz, recoveryfactor=0.85))
@@ -89,6 +84,10 @@ avg_water_saturation=avg_saturation, gas_vol_factor=bg_midz, recoveryfactor=0.85
 
 bgS.append(calc_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
 avg_water_saturation=avg_saturation, gas_vol_factor=bg_highz, recoveryfactor=0.85))
+
+print("The low Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_lowz, round(bgS[0])))
+print("The mid Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_midz, round(bgS[1])))
+print("The high Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_highz, round(bgS[2])))
 
 for a in bgS:
     areas.append(a)
@@ -107,6 +106,7 @@ average = round(sum(cases_rounded)/len(cases_rounded))
 
 print("The minimum drainage area is: {} acres".format(min(cases_rounded)))
 print("The average drainage area is: {} acres".format(average))
+print("The median drainage area is: {} acres".format(np.median(round(cases_rounded))))
 print("The maximum drainage area is: {} acres".format(max(cases_rounded)))
 
 plt.hist(cases_rounded, alpha=0.5, label='All cases drainage area (Acres)')
