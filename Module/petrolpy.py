@@ -72,7 +72,7 @@ def calc_gas_vol_factor(z_value=1.0,temp=193, pressure=500):
     bg = 0.0282793*((z_value*temp_rankin)/pressure)
     return bg
 
-def calc_drainage_area(gas_produced=2.5, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vol_factor=0.00533, recoveryfactor=0.65):
+def calc_drainage_area(gas_produced=2.5, res_height=20, porosity=0.25, avg_water_saturation=0.25, gas_vol_factor=0.00533, recoveryfactor=0.65):
     """Returns the estimate for drainage area (Acres) given the gas produced (BCF), reservoir height (ft),
     porosity (fraction), average water saturation (fraction), the gas formation volume factor (RCF/SCF), and the recovery factor."""
     return ((gas_produced*10**(9))*gas_vol_factor*recoveryfactor)/(43560*res_height*porosity*(1-avg_water_saturation))

@@ -10,8 +10,9 @@ low_saturation = float(input('Enter the low water saturation limit: '))
 high_saturation = float(input('Enter the high water saturation limit: '))
 low_height = float(input('Enter the low reservoir height limit: '))
 high_height = float(input('Enter the high reservoir height limit: '))
-res_pressure = float(input('Enter the reservoir pressure estimate: '))
+res_depth = float(input('Enter the reservoir depth estimate: '))
 
+res_pressure = 0.433*res_depth
 avg_porosity = (low_porosity + high_porosity)/2
 avg_saturation = (low_saturation + high_saturation)/2
 avg_height = (low_height + high_height)/2 
@@ -30,7 +31,7 @@ areas.append(calc_drainage_area(gas_produced=gas_produced, res_height=low_height
 avg_water_saturation=high_saturation, gas_vol_factor=0.00533, recoveryfactor=0.65))
 
 areas.append(calc_drainage_area(gas_produced=gas_produced, res_height=high_height, porosity=high_porosity, 
-avg_water_saturation=high_saturation, gas_vol_factor=0.00533, recoveryfactor=0.65))
+avg_water_saturation=low_saturation, gas_vol_factor=0.00533, recoveryfactor=0.65))
 
 # porosity sensitivity
 porosityS.append(calc_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=low_porosity, 
@@ -103,11 +104,16 @@ for a in all_cases:
 print(cases_rounded)
 
 average = round(sum(cases_rounded)/len(cases_rounded))
+medianarea = round(np.median(cases_rounded))
 
 print("The minimum drainage area is: {} acres".format(min(cases_rounded)))
 print("The average drainage area is: {} acres".format(average))
-print("The median drainage area is: {} acres".format(round(np.median(cases_rounded))))
+print("The median drainage area is: {} acres".format(medianarea))
 print("The maximum drainage area is: {} acres".format(max(cases_rounded)))
+
+medianradius = round((medianarea*43560)/(2*5280*np.pi*avg_height))
+
+print("\nThe median drainage radius is: {} miles".format(medianradius))
 
 plt.hist(cases_rounded, alpha=0.5, label='All cases drainage area (Acres)')
 plt.hist(bgS, alpha=0.5, label='Bg Sensitivity drainage area (Acres)')
