@@ -106,7 +106,7 @@ average = round(sum(cases_rounded)/len(cases_rounded))
 
 print("The minimum drainage area is: {} acres".format(min(cases_rounded)))
 print("The average drainage area is: {} acres".format(average))
-print("The median drainage area is: {} acres".format(np.median(round(cases_rounded))))
+print("The median drainage area is: {} acres".format(round(np.median(cases_rounded))))
 print("The maximum drainage area is: {} acres".format(max(cases_rounded)))
 
 plt.hist(cases_rounded, alpha=0.5, label='All cases drainage area (Acres)')
