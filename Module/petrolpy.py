@@ -40,8 +40,8 @@ def giip(area=40, res_height=20, porosity=0.25, avg_water_saturation=0.4, gas_vo
     porosity (fraction), average water saturation (fraction), and the gas formation volume factor (RCF/SCF)."""
     return (43560*area*res_height*porosity*(1-avg_water_saturation))/gas_vol_factor
 
-def mcf_to_boe(mcf=0, conversion_factor=6000):
-    """Converts mcf to barrels of oil equivalent using the standard 6000 mcf/boe conversion factor."""
+def mcf_to_boe(mcf=0, conversion_factor=6):
+    """Converts mcf to barrels of oil equivalent using the standard 6 mcf/boe conversion factor."""
     return (mcf/conversion_factor)
 
 def hyperbolic_type_curve(b_factor=0.8,initial_prod=0, di_factor=0.15, time=10):
