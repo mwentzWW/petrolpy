@@ -111,7 +111,7 @@ print("The average drainage area is: {} acres".format(average))
 print("The median drainage area is: {} acres".format(medianarea))
 print("The maximum drainage area is: {} acres".format(max(cases_rounded)))
 
-medianradius = round((medianarea*43560)/(2*5280*np.pi*avg_height))
+medianradius = round(((medianarea*43560)/(np.pi*5280**2))**0.5, 2)
 
 print("\nThe median drainage radius is: {} miles".format(medianradius))
 
