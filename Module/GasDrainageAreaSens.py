@@ -3,6 +3,20 @@ from petrolpy import calc_gas_vol_factor
 import matplotlib.pyplot as plt
 import numpy as np
 
+print("""\
+
+  _____     _             _             
+ |  __ \   | |           | |            
+ | |__) |__| |_ _ __ ___ | |_ __  _   _ 
+ |  ___/ _ \ __| '__/ _ \| | '_ \| | | |
+ | |  |  __/ |_| | | (_) | | |_) | |_| |
+ |_|   \___|\__|_|  \___/|_| .__/ \__, |
+                           | |     __/ |
+                           |_|    |___/ 
+
+
+""")
+
 gas_produced = float(input('Enter the cumulative production in BCF: '))
 low_porosity = float(input('Enter the lower porosity limit: '))
 high_porosity = float(input('Enter the higher porosity limit: '))
@@ -86,9 +100,11 @@ avg_water_saturation=avg_saturation, gas_vol_factor=bg_midz, recoveryfactor=0.85
 bgS.append(calc_gas_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
 avg_water_saturation=avg_saturation, gas_vol_factor=bg_highz, recoveryfactor=0.85))
 
-print("The low Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_lowz, round(bgS[0])))
-print("The mid Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_midz, round(bgS[1])))
-print("The high Z factor Bg estimate is: {} rcf/scf --> {} acres".format(bg_highz, round(bgS[2])))
+print("\n--------------------Calculation Results--------------------")
+
+print("\nThe low Z factor Bg estimate is: {} rcf/scf --> {} acres".format(round(bg_lowz, 5), round(bgS[0])))
+print("The mid Z factor Bg estimate is: {} rcf/scf --> {} acres".format(round(bg_midz, 5), round(bgS[1])))
+print("The high Z factor Bg estimate is: {} rcf/scf --> {} acres\n".format(round(bg_highz, 5), round(bgS[2])))
 
 for a in bgS:
     areas.append(a)
@@ -101,19 +117,28 @@ for a in all_cases:
     rounded = round(a)
     cases_rounded.append(rounded)
 
-print(cases_rounded)
+print(sorted(cases_rounded))
 
 average = round(sum(cases_rounded)/len(cases_rounded))
 medianarea = round(np.median(cases_rounded))
+minarea = min(cases_rounded)
+maxarea = max(cases_rounded)
 
-print("The minimum drainage area is: {} acres".format(min(cases_rounded)))
+print("\nThe minimum drainage area is: {} acres".format(minarea))
 print("The average drainage area is: {} acres".format(average))
 print("The median drainage area is: {} acres".format(medianarea))
-print("The maximum drainage area is: {} acres".format(max(cases_rounded)))
+print("The maximum drainage area is: {} acres".format(maxarea))
 
-medianradius = round(((medianarea*43560)/(np.pi*5280**2))**0.5, 2)
+def drainage_radius(area):
+    return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
 
-print("\nThe median drainage radius is: {} miles".format(medianradius))
+minradius = drainage_radius(minarea)
+medianradius = drainage_radius(medianarea)
+maxradius = drainage_radius(maxarea)
+
+print("\nThe minimum drainage radius is: {} miles".format(minradius))
+print("The median drainage radius is: {} miles".format(medianradius))
+print("The maximum drainage radius is: {} miles\n".format(maxradius))
 
 plt.hist(cases_rounded, alpha=0.5, label='All cases drainage area (Acres)')
 plt.hist(bgS, alpha=0.5, label='Bg Sensitivity drainage area (Acres)')
