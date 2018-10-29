@@ -1,5 +1,6 @@
 from petrolpy import calc_gas_drainage_area
 from petrolpy import calc_gas_vol_factor
+from petrolpy import drainage_radius
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -92,13 +93,13 @@ bg_midz = calc_gas_vol_factor(z_value=.6,temp=193, pressure=res_pressure)
 bg_highz = calc_gas_vol_factor(z_value=.8,temp=193, pressure=res_pressure)
 
 bgS.append(calc_gas_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, gas_vol_factor=bg_lowz, recoveryfactor=0.85))
+avg_water_saturation=avg_saturation, gas_vol_factor=bg_lowz, recoveryfactor=0.65))
 
 bgS.append(calc_gas_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, gas_vol_factor=bg_midz, recoveryfactor=0.85))
+avg_water_saturation=avg_saturation, gas_vol_factor=bg_midz, recoveryfactor=0.65))
 
 bgS.append(calc_gas_drainage_area(gas_produced=gas_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, gas_vol_factor=bg_highz, recoveryfactor=0.85))
+avg_water_saturation=avg_saturation, gas_vol_factor=bg_highz, recoveryfactor=0.65))
 
 print("\n--------------------Calculation Results--------------------")
 
@@ -128,9 +129,6 @@ print("\nThe minimum drainage area is: {} acres".format(minarea))
 print("The average drainage area is: {} acres".format(average))
 print("The median drainage area is: {} acres".format(medianarea))
 print("The maximum drainage area is: {} acres".format(maxarea))
-
-def drainage_radius(area):
-    return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
 
 minradius = drainage_radius(minarea)
 medianradius = drainage_radius(medianarea)

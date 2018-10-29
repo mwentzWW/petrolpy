@@ -5,6 +5,8 @@ Github: github.com/mwentzWW
 Scope: Create Petroleum Engineering functions commonly used for python
 
 """
+import numpy as np
+
 def porosity_sim(vol_pore=0, vol_bulk=1.0, vol_matrix=0.7):
     """Returns the simple porosity of volume given the bulk and matrix volume,
      or the user can give the pore volume and bulk volume."""
@@ -76,3 +78,12 @@ def calc_gas_drainage_area(gas_produced=2.5, res_height=20, porosity=0.25, avg_w
     """Returns the estimate for drainage area (Acres) given the gas produced (BCF), reservoir height (ft),
     porosity (fraction), average water saturation (fraction), the gas formation volume factor (RCF/SCF), and the recovery factor."""
     return ((gas_produced*10**(9))*gas_vol_factor*recoveryfactor)/(43560*res_height*porosity*(1-avg_water_saturation))
+
+def calc_oil_drainage_area(oil_produced=2.5, res_height=20, porosity=0.25, avg_water_saturation=0.25, oil_vol_factor=1.2, recoveryfactor=0.10):
+    """Returns the estimate for drainage area (Acres) given the oil produced (MBO), reservoir height (ft),
+    porosity (fraction), average water saturation (fraction), the oil formation volume factor (RBBL/STB), and the recovery factor."""
+    return ((oil_produced*10**(3))*oil_vol_factor)/(7758*res_height*porosity*(1-avg_water_saturation)*recoveryfactor)
+
+def drainage_radius(area):
+  """Returns the circular drainage radius (miles) given the drainage area (Acres)"""
+  return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
