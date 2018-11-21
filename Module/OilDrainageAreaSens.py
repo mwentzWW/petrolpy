@@ -26,10 +26,10 @@ low_height = float(input('Enter the low reservoir height limit: '))
 high_height = float(input('Enter the high reservoir height limit: '))
 res_depth = float(input('Enter the reservoir depth estimate: '))
 
-res_pressure = 0.433*res_depth
-avg_porosity = (low_porosity + high_porosity)/2
-avg_saturation = (low_saturation + high_saturation)/2
-avg_height = (low_height + high_height)/2 
+res_pressure = 0.433 * res_depth
+avg_porosity = (low_porosity + high_porosity) / 2
+avg_saturation = (low_saturation + high_saturation) / 2
+avg_height = (low_height + high_height) / 2
 
 areas = []
 porosityS = []
@@ -38,64 +38,65 @@ recoveriesS = []
 boS = []
 
 # all low, all average, all high cases
-areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                    avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=low_height, porosity=low_porosity, 
-avg_water_saturation=high_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=low_height, porosity=low_porosity,
+                                    avg_water_saturation=high_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=high_height, porosity=high_porosity, 
-avg_water_saturation=low_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+areas.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=high_height, porosity=high_porosity,
+                                    avg_water_saturation=low_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
 # porosity sensitivity
-porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=low_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=low_porosity,
+                                        avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                        avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=high_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+porosityS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=high_porosity,
+                                        avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
 for a in porosityS:
     areas.append(a)
 
 # saturation sensitivity
-saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=low_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=low_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=high_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+saturationS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=high_saturation, oil_vol_factor=1.2,
+                                          recoveryfactor=0.10))
 
 for a in saturationS:
     areas.append(a)
 
 # Recovery Factor sensitivity
-recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.05))
+recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.05))
 
-recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.15))
+recoveriesS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                          avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.15))
 
 for a in recoveriesS:
     areas.append(a)
 
 # Oil formation volume factor sensitivity
 
-boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.1, recoveryfactor=0.10))
+boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                  avg_water_saturation=avg_saturation, oil_vol_factor=1.1, recoveryfactor=0.10))
 
-boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
+boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                  avg_water_saturation=avg_saturation, oil_vol_factor=1.2, recoveryfactor=0.10))
 
-boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity, 
-avg_water_saturation=avg_saturation, oil_vol_factor=1.3, recoveryfactor=0.10))
+boS.append(calc_oil_drainage_area(oil_produced=oil_produced, res_height=avg_height, porosity=avg_porosity,
+                                  avg_water_saturation=avg_saturation, oil_vol_factor=1.3, recoveryfactor=0.10))
 
 print("\n--------------------Calculation Results--------------------")
 
@@ -116,7 +117,7 @@ for a in all_cases:
 
 print(sorted(cases_rounded))
 
-average = round(sum(cases_rounded)/len(cases_rounded))
+average = round(sum(cases_rounded) / len(cases_rounded))
 medianarea = round(np.median(cases_rounded))
 minarea = min(cases_rounded)
 maxarea = max(cases_rounded)
