@@ -10,5 +10,6 @@
     "python.autoComplete.addBrackets": true,
     "editor.insertSpaces": true,
     "extensions.showRecommendationsOnlyOnDemand": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true
 }

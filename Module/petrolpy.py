@@ -87,3 +87,17 @@ def calc_oil_drainage_area(oil_produced=2.5, res_height=20, porosity=0.25, avg_w
 def drainage_radius(area):
   """Returns the circular drainage radius (miles) given the drainage area (Acres)"""
   return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
+
+# Create class for Well with well info, production, and type curve method
+
+class Well:
+
+    def __init__(self, well_name, well_api_10):
+        self.name = well_name
+        self.api = well_api_10
+    
+    def import_monthly_production(self, monthly_oil, monthly_gas):
+        self.m_oil = monthly_oil
+        self.m_gas = monthly_gas
+        self.d_oil = [(month/30.4) for month in monthly_oil]
+        self.d_gas = [(month/30.4) for month in monthly_gas]

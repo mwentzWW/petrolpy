@@ -4,4 +4,4 @@ This repository is meant to serve as an open source option for petroleum enginee
 
 ---
 
-This repository was created with Anaconda as the environment.
+This repository was created with Anaconda.
