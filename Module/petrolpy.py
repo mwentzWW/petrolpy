@@ -6,7 +6,7 @@ Scope: Create Petroleum Engineering functions commonly used for python
 
 """
 import numpy as np
-
+from scipy.stats import lognorm
 
 def porosity_sim(vol_pore=0, vol_bulk=1.0, vol_matrix=0.7):
     """Returns the simple porosity of volume given the bulk and matrix volume,
@@ -101,11 +101,13 @@ def drainage_radius(area):
     """Returns the circular drainage radius (miles) given the drainage area (Acres)"""
     return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
 
-# Create class for Well with well info, production, and type curve method
 
+def distribution(data):
+    """Petroleum data such as reserves are generally a log normal distribution. This will a log normal distribution to the data"""
+    lognormal = lognorm.fit(data)
 
 class Well:
-
+    """ Create class for Well with well info, production, and type curve method"""
     def __init__(self, well_name, well_api_10):
         self.name = well_name
         self.api = well_api_10
