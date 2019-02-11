@@ -1,12 +1,13 @@
 #%%
-from scipy.stats import lognorm
+import tkinter.filedialog
 from tkinter import Tk
-import tkinter.filedialog 
 from tkinter.filedialog import askopenfilename
+
 import pandas as pd
-import plotly.plotly as plotly
-import plotly.graph_objs as go
 import plotly.figure_factory as ff
+import plotly.graph_objs as go
+import plotly.plotly as plotly
+from scipy.stats import lognorm
 
 Tk().withdraw()
 filename = askopenfilename()
