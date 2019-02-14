@@ -4,6 +4,7 @@ from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 import pandas as pd
+import plotly.offline as offline
 import plotly.figure_factory as ff
 import plotly.graph_objs as go
 import plotly.plotly as plotly
@@ -26,9 +27,9 @@ oil_dist.plot.density();
 
 #%%
 data = [go.Histogram(x=oil_dist, histnorm='probability')]
-plotly.iplot(data, filename='normalized histogram')
+offline.iplot(data, filename='normalized histogram')
 
 #%%  
 hist_data = [oil_dist]
 fig = ff.create_distplot(hist_data, group_labels=['Cum MBO'])
-plotly.iplot(fig, filename='Basic Distplot')
+offline.iplot(fig, filename='Basic Distplot')
