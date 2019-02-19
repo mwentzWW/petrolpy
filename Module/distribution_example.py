@@ -1,7 +1,5 @@
 #%%
-import tkinter.filedialog
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
+import math
 
 import numpy as np
 import pandas as pd
@@ -30,37 +28,24 @@ def make_plot(title, hist, edges, x, pdf, cdf):
     p.grid.grid_line_color="white"
     return p
 
-Tk().withdraw()
-filename = askopenfilename()
-
-data = pd.read_excel(filename)
+data = pd.read_csv("https://raw.githubusercontent.com/mwentzWW/petrolpy/master/Module/Test_Data/EUR_Data.csv", index_col = 0, header = None)
 #%%
 data
 
 #%%
 # lognorm.fit returns (shape, floc, scale)
-# shape is sigma or the standard deviation, scale = mean??
+# shape is sigma or the standard deviation, scale = exp(mean)
 # the loc is shifting the plot left or right??
-sigma, floc, mu  = lognorm.fit(data["Cum MBO"], floc=0)
+sigma, floc, scale  = lognorm.fit(data["Cum MBO"], floc=0)
+mu = math.log(scale)
 oil_dist = data["Cum MBO"]
-oil_dist.hist();
+oil_dist.hist()
 #%%
-hist, edges = np.histogram(data["Cum MBO"], density=True, bins=50)
+hist, edges = np.histogram(data["Cum MBO"], density=True, bins=100)
 
-x = np.linspace(0.0001, 8.0, 1000)
+x = np.linspace(0.0001, np.max(oil_dist) + np.mean(oil_dist), 1000)
 pdf = 1/(x* sigma * np.sqrt(2*np.pi)) * np.exp(-(np.log(x)-mu)**2 / (2*sigma**2))
 cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
 
-plot_1 = make_plot("Log Normal Distribution (μ=0, σ=0.5)", hist, edges, x, pdf, cdf)
+plot_1 = make_plot("Log Normal Distribution (μ={}, σ={})".format(round(mu, 2),round(sigma, 2)), hist, edges, x, pdf, cdf)
 show(plot_1)
-#%%
-oil_dist.plot.density();
-
-#%%
-data = [go.Histogram(x=oil_dist, histnorm='probability')]
-offline.iplot(data, filename='normalized histogram')
-
-#%%  
-hist_data = [oil_dist]
-fig = ff.create_distplot(hist_data, group_labels=['Cum MBO'])
-offline.iplot(fig, filename='Basic Distplot')
