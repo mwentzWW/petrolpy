@@ -6,6 +6,7 @@ Scope: Create Petroleum Engineering functions commonly used for python
 
 """
 import numpy as np
+import math
 from scipy.stats import lognorm
 
 def porosity_sim(vol_pore=0, vol_bulk=1.0, vol_matrix=0.7):
@@ -69,7 +70,6 @@ def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
     """Creates a type curve using Arp's equation for exponential decline. Make sure the units for production and time are the same.
     The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
     returns the type curve as a list."""
-    import math
     production = []
     for x in range(0, time + 1):
         q_time = (initial_prod)*math.exp(-di_factor*x)
