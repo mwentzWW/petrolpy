@@ -24,14 +24,13 @@ def make_plot(title, hist, edges, x, pdf, cdf):
     p.grid.grid_line_color="white"
     return p
 
-data = pd.read_csv("https://raw.githubusercontent.com/mwentzWW/petrolpy/master/Module/Test_Data/EUR_Data.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/mwentzWW/petrolpy/master/petrolpy/Test_Data/EUR_Data.csv")
 #%%
 data
 
 #%%
 # lognorm.fit returns (shape, floc, scale)
 # shape is sigma or the standard deviation, scale = exp(mean)
-# the loc is shifting the plot left or right??
 sigma, floc, scale  = lognorm.fit(data["CUM_MBO"], floc=0)
 mu = math.log(scale)
 oil_dist = data["CUM_MBO"]
@@ -43,7 +42,7 @@ x = np.linspace(0.0001, np.max(oil_dist) + np.mean(oil_dist), 1000)
 pdf = 1/(x* sigma * np.sqrt(2*np.pi)) * np.exp(-(np.log(x)-mu)**2 / (2*sigma**2))
 cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
 
-plot_1 = make_plot("Log Normal Distribution (μ={}, σ={})".format(round(scale, 2),round(sigma, 2)), hist, edges, x, pdf, cdf, vline)
+plot_1 = make_plot("Log Normal Distribution (μ={}, σ={})".format(round(scale, 2),round(sigma, 2)), hist, edges, x, pdf, cdf)
 show(plot_1)
 #%%
 # Find P10, P50, and P90
