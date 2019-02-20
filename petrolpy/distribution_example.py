@@ -1,16 +1,12 @@
 #%%
 import math
-
 import numpy as np
 import pandas as pd
-import plotly.figure_factory as ff
-import plotly.graph_objs as go
-import plotly.offline as offline
-import plotly.plotly as plotly
 import scipy.special
 from bokeh.layouts import gridplot
 from bokeh.plotting import figure, output_file, show
 from scipy.stats import lognorm
+
 
 
 def make_plot(title, hist, edges, x, pdf, cdf):
@@ -28,7 +24,7 @@ def make_plot(title, hist, edges, x, pdf, cdf):
     p.grid.grid_line_color="white"
     return p
 
-data = pd.read_csv("https://raw.githubusercontent.com/mwentzWW/petrolpy/master/Module/Test_Data/EUR_Data.csv", index_col = 0, header = None)
+data = pd.read_csv("https://raw.githubusercontent.com/mwentzWW/petrolpy/master/Module/Test_Data/EUR_Data.csv")
 #%%
 data
 
@@ -36,16 +32,25 @@ data
 # lognorm.fit returns (shape, floc, scale)
 # shape is sigma or the standard deviation, scale = exp(mean)
 # the loc is shifting the plot left or right??
-sigma, floc, scale  = lognorm.fit(data["Cum MBO"], floc=0)
+sigma, floc, scale  = lognorm.fit(data["CUM_MBO"], floc=0)
 mu = math.log(scale)
-oil_dist = data["Cum MBO"]
+oil_dist = data["CUM_MBO"]
 oil_dist.hist()
 #%%
-hist, edges = np.histogram(data["Cum MBO"], density=True, bins=100)
+hist, edges = np.histogram(data["CUM_MBO"], density=True, bins=100)
 
 x = np.linspace(0.0001, np.max(oil_dist) + np.mean(oil_dist), 1000)
 pdf = 1/(x* sigma * np.sqrt(2*np.pi)) * np.exp(-(np.log(x)-mu)**2 / (2*sigma**2))
 cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
 
-plot_1 = make_plot("Log Normal Distribution (μ={}, σ={})".format(round(mu, 2),round(sigma, 2)), hist, edges, x, pdf, cdf)
+plot_1 = make_plot("Log Normal Distribution (μ={}, σ={})".format(round(scale, 2),round(sigma, 2)), hist, edges, x, pdf, cdf, vline)
 show(plot_1)
+#%%
+# Find P10, P50, and P90
+def find_nearest(array, value):
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return (array[idx], idx)
+
+p50_param = find_nearest(cdf, 0.5)
+p50_param

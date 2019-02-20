@@ -102,18 +102,23 @@ def drainage_radius(area):
     return round(((area*43560)/(np.pi*5280**2))**0.5, 2)
 
 
-def distribution(data):
-    """Petroleum data such as reserves are generally a log normal distribution. This will a log normal distribution to the data"""
-    lognormal = lognorm.fit(data)
+# Placeholder for log normal function from example file
 
-class Well:
-    """ Create class for Well with well info, production, and type curve method"""
-    def __init__(self, well_name, well_api_10):
+class Well(object):
+    """ Create class for Well with well info, production, and type curve data"""
+
+    def __init__(self, well_name, well_api):
         self.name = well_name
-        self.api = well_api_10
+        self.api = well_api
+    
+    def __repr__(self):
+        return "{}, {}".format(self.name, self.api)
+
+    def __str__(self):
+        return "Well Name: {}\nWell API: {}".format(self.name, self.api)
 
     def import_monthly_production(self, monthly_oil, monthly_gas):
         self.m_oil = monthly_oil
         self.m_gas = monthly_gas
-        self.d_oil = [(month/30.4) for month in monthly_oil]
-        self.d_gas = [(month/30.4) for month in monthly_gas]
+        self.d_oil = [round((month/30.4), 0) for month in monthly_oil]
+        self.d_gas = [round((month/30.4), 0) for month in monthly_gas]
