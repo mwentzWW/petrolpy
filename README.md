@@ -6,4 +6,4 @@ This repository is meant to serve as an open source option for petroleum enginee
 
 ---
 
-This repository was created with Anaconda.
+You can run the notebooks by clicking the "launch binder" button above. The required packages are in the environment.yaml file.
