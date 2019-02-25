@@ -2,7 +2,7 @@
 Author: Michael Wentz
 Github: github.com/mwentzWW
 
-Scope: Create Petroleum Engineering functions commonly used for python
+Scope: Create Petroleum Engineering functions and classes that could be commonly used
 
 """
 import numpy as np
@@ -122,3 +122,7 @@ class Well(object):
         self.m_gas = monthly_gas
         self.d_oil = [round((month/30.4), 0) for month in monthly_oil]
         self.d_gas = [round((month/30.4), 0) for month in monthly_gas]
+
+    def import_daily_production(self, daily_oil, daily_gas):
+        self.d_oil = daily_oil
+        self.d_gas = daily_gas
