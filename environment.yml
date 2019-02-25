@@ -3,25 +3,10 @@ channels:
   - defaults
 dependencies:
   - bokeh
-  - ipykernel
-  - ipython
-  - ipython_genutils
   - ipywidgets
-  - jedi
-  - jinja2
-  - jpeg
-  - jsonschema
-  - jupyter_client
-  - jupyter_core
-  - nbconvert=5.3.1
-  - nbformat=4.4.0
-  - notebook=5.7.4
   - numpy
   - numpy-base
-  - packaging
   - pandas
-  - pandoc
-  - pip
   - scipy
 prefix: C:\Anaconda3.7\envs\pe_env
 
