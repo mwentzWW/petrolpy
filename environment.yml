@@ -2,6 +2,8 @@ name: pe_env
 channels:
   - defaults
 dependencies:
+  - python
+  - xlrd
   - bokeh
   - ipywidgets
   - numpy
