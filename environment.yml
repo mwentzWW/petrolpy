@@ -11,5 +11,6 @@ dependencies:
   - pandas
   - scipy
   - matplotlib
+  - scikit-learn
 prefix: C:\Anaconda3.7\envs\pe_env
 
