@@ -42,6 +42,8 @@ def make_plot_cdf(title, hist, edges, x, pdf, cdf, x_label):
 
 
 def make_plot_probit(title, input_data, x_label):
+    '''Creates Probit plot for EUR and data that has a log-normal distribution.
+    '''
     # Calculate log-normal distribtion for input data
     sigma, floc, scale = lognorm.fit(input_data, floc=0)
     mu = math.log(scale)
