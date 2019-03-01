@@ -41,8 +41,8 @@ def make_plot_cdf(title, hist, edges, x, pdf, cdf, x_label):
     return p
 
 
-def make_plot_prob_density(title, input_data, x_label):
-    # Calculate distribtion for input data
+def make_plot_probit(title, input_data, x_label):
+    # Calculate log-normal distribtion for input data
     sigma, floc, scale = lognorm.fit(input_data, floc=0)
     mu = math.log(scale)
     x = np.linspace(0.001, np.max(input_data) + np.mean(input_data), 1000)
@@ -187,7 +187,7 @@ plot_cdf = make_plot_cdf("Log Normal Distribution (n= {}, μ={}, σ={})".format(
     input_data), 2), round(scale, 2), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
 plot_pdf = make_plot_pdf("Log Normal Distribution (n= {}, μ={}, σ={})".format(round(
     len(input_data), 2), round(scale, 2), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
-plot_dist = make_plot_prob_density("Log Normal Distribution (n= {}, μ={}, σ={})".format(
+plot_dist = make_plot_probit("Log Normal Distribution (n= {}, μ={}, σ={})".format(
     round(len(input_data), 2), round(scale, 2), round(sigma, 2)), input_data, 'Cum MBO')
 # %%
 show(plot_cdf)
