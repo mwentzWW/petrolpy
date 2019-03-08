@@ -112,10 +112,10 @@ class Well(object):
         self.api = well_api
     
     def __repr__(self):
-        return "{}, {}".format(self.name, self.api)
+        return f"{self.name}, {self.api}"
 
     def __str__(self):
-        return "Well Name: {}\nWell API: {}".format(self.name, self.api)
+        return f"Well Name: {self.name}\nWell API: {self.api}"
 
     def import_monthly_production(self, monthly_oil, monthly_gas):
         self.m_oil = monthly_oil
