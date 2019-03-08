@@ -58,8 +58,11 @@ def make_plot_probit(title, input_data, x_label):
     input_data_log = np.log(input_data)
     # Get percentile of each point by getting rank/len(data)
     input_data_log_sorted = np.argsort(input_data_log)
+    ranks = np.empty_like(input_data_log_sorted)
+    ranks[input_data_log_sorted] = np.arange(len(input_data_log))
+    
     input_data_log_perc = [x/(len(input_data_log_sorted) + 1)
-                           for x in input_data_log_sorted]
+                           for x in ranks]
     input_data_y_values = norm._ppf(input_data_log_perc)
 
     # Prepare fitted line for plot
