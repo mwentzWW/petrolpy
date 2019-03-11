@@ -148,12 +148,18 @@ def make_plot_pdf(title, hist, edges, x, pdf, x_label):
                            fill_alpha=0.1, fill_color='blue')
     upper = BoxAnnotation(
         left=p10, right=x[-1], fill_alpha=0.1, fill_color='darkred')
+    
+    # Hover Tool
+    p.add_tools(HoverTool(
+    tooltips=[
+        ( x_label, '@x{f}'            ),
+        ( 'Probability', '@pdf{%0.6Ff}' ), # use @{ } for field names with spaces
+    ]))
 
     # Plot Styling
     p.add_layout(lower)
     p.add_layout(middle)
     p.add_layout(upper)
-    p.add_tools(HoverTool(mode='mouse'))
     p.y_range.start = 0
     p.legend.location = "center_right"
     p.legend.background_fill_color = "#fefefe"
@@ -177,7 +183,7 @@ data
 input_data = data["CUM_MBO"]
 # %%
 # lognorm.fit returns (shape, floc, scale)
-# shape is sigma or the standard deviation, scale = exp(mean)
+# shape is sigma or the standard deviation, scale = exp(median)
 sigma, floc, scale = lognorm.fit(input_data, floc=0)
 mu = math.log(scale)
 # %%
@@ -187,13 +193,14 @@ x = np.linspace(0.001, np.max(input_data) + np.mean(input_data), 1000)
 pdf = 1/(x * sigma * np.sqrt(2*np.pi)) * \
     np.exp(-(np.log(x)-mu)**2 / (2*sigma**2))
 cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
+mean = np.exp(mu + 0.5*(sigma**2))
 # %%
-plot_cdf = make_plot_cdf("Log Normal Distribution (n= {}, μ={}, σ={})".format(round(len(
-    input_data), 2), round(scale, 2), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
-plot_pdf = make_plot_pdf("Log Normal Distribution (n= {}, μ={}, σ={})".format(round(
-    len(input_data), 2), round(scale, 2), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
-plot_dist = make_plot_probit("Log Normal Distribution (n= {}, μ={}, σ={})".format(
-    round(len(input_data), 2), round(scale, 2), round(sigma, 2)), input_data, 'Cum MBO')
+plot_cdf = make_plot_cdf("Log Normal Distribution (n= {}, mean={}, σ={})".format(round(len(
+    input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
+plot_pdf = make_plot_pdf("Log Normal Distribution (n= {}, mean={}, σ={})".format(round(
+    len(input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
+plot_dist = make_plot_probit("Log Normal Distribution (n= {}, mean={}, σ={})".format(
+    round(len(input_data), 2), round(mean), round(sigma, 2)), input_data, 'Cum MBO')
 # %%
 show(plot_cdf)
 # %%
