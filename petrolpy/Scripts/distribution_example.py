@@ -7,9 +7,8 @@ import scipy.special
 from bokeh.layouts import gridplot
 from bokeh.io import show, output_notebook
 from bokeh.plotting import figure
-from bokeh.models import BoxAnnotation, HoverTool
+from bokeh.models import BoxAnnotation, HoverTool, ColumnDataSource, PrintfTickFormatter
 from scipy.stats import lognorm, norm
-from sklearn.linear_model import LinearRegression
 # %%
 # Bokeh output to notebook setting
 # output_notebook()
@@ -61,7 +60,7 @@ def make_plot_probit(title, input_data, x_label):
     ranks = np.empty_like(input_data_log_sorted)
     ranks[input_data_log_sorted] = np.arange(len(input_data_log))
     
-    input_data_log_perc = [x/(len(input_data_log_sorted) + 1)
+    input_data_log_perc = [(x + 1)/(len(input_data_log_sorted))
                            for x in ranks]
     input_data_y_values = norm._ppf(input_data_log_perc)
 
@@ -111,6 +110,7 @@ def make_plot_probit(title, input_data, x_label):
     p.xaxis.axis_label = x_label
     p.yaxis.axis_label = 'Z'
     p.left[0].formatter.use_scientific = False
+    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
     p.yaxis.visible = False
     p.title.text = title + \
         " & (P90: {}, P50: {}, P10: {})".format(int(p90), int(p50), int(p10))
@@ -121,11 +121,17 @@ def make_plot_probit(title, input_data, x_label):
 
 
 def make_plot_pdf(title, hist, edges, x, pdf, x_label):
+        
+    source = ColumnDataSource(data = {
+        'x' : x,
+        'pdf': pdf,
+    })
+
     p = figure(background_fill_color="#fafafa", )
     p.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:],
            fill_color="navy", line_color="white", alpha=0.5)
-    p.line(x, pdf, line_color="black", line_width=4, alpha=0.8, legend="PDF",
-           hover_alpha=0.4, hover_line_color="black")
+    p.line('x', 'pdf', line_color="black", line_width=4, alpha=0.8, legend="PDF",
+           hover_alpha=0.4, hover_line_color="black", source=source)
 
     # calculate P90, P50, P10
     p10_param = find_nearest(cdf, 0.9)
