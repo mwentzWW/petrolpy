@@ -171,6 +171,7 @@ def make_plot_pdf(title, hist, edges, x, pdf, x_label):
     p.add_layout(middle)
     p.add_layout(upper)
     p.y_range.start = 0
+    p.x_range.start = 0
     p.legend.location = "center_right"
     p.legend.background_fill_color = "#fefefe"
     p.xaxis.axis_label = x_label
