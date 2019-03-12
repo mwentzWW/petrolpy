@@ -147,11 +147,11 @@ def make_plot_pdf(title, hist, edges, x, pdf, x_label):
     p90 = round(x[p90_param[1]])
 
     p.line((p90, p90), [0, np.max(pdf)],
-           line_color='darkred', line_width=3, legend="P90")
+           line_color='darkred', line_width=3, legend=f"P90 = {int(p90)}")
     p.line((p50, p50), [0, np.max(pdf)],
-           line_color='blue', line_width=3, legend="P50")
+           line_color='blue', line_width=3, legend=f"P50 = {int(p50)}")
     p.line((p10, p10), [0, np.max(pdf)],
-           line_color='red', line_width=3, legend="P10")
+           line_color='red', line_width=3, legend=f"P10 = {int(p10)}")
 
     lower = BoxAnnotation(left=p90, right=p50,
                           fill_alpha=0.1, fill_color='darkred')
