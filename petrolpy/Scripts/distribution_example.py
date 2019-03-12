@@ -36,6 +36,7 @@ def make_plot_cdf(title, hist, edges, x, pdf, cdf, x_label):
     p.yaxis.axis_label = 'Pr(x)'
     p.grid.grid_line_color = "white"
     p.left[0].formatter.use_scientific = False
+    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
 
     return p
 
@@ -84,36 +85,39 @@ def make_plot_probit(title, input_data, x_label):
     p90 = round(x[p90_param[1]])
 
     # Add P90, P50, P10 markers
-    p.scatter(p90, norm._ppf(0.10), size=20, line_color="black",
-              fill_color='darkred', legend='P90', marker='square_x')
-    p.scatter(p50, norm._ppf(0.50), size=20, line_color="black",
-              fill_color='blue', legend='P50', marker='square_x')
-    p.scatter(p10, norm._ppf(0.90), size=20, line_color="black",
-              fill_color='red', legend='P10', marker='square_x')
+    p.scatter(p90, norm._ppf(0.10), size=15, line_color="black",
+              fill_color='darkred', legend=f"P90 = {int(p90)}", marker='square_x')
+    p.scatter(p50, norm._ppf(0.50), size=15, line_color="black",
+              fill_color='blue', legend=f"P50 = {int(p50)}", marker='square_x')
+    p.scatter(p10, norm._ppf(0.90), size=15, line_color="black",
+              fill_color='red', legend=f"P10 = {int(p10)}", marker='square_x')
 
     # Add P90, P50, P10 segments
    # p.segment(1, norm._ppf(0.10), np.max(x), norm._ppf(0.10), line_dash='dashed', line_width=2, line_color='black', legend="P90")
    # p.segment(1, norm._ppf(0.50), np.max(x), norm._ppf(0.50), line_dash='dashed', line_width=2, line_color='black', legend="P50")
    # p.segment(1, norm._ppf(0.90), np.max(x), norm._ppf(0.90), line_dash='dashed', line_width=2, line_color='black', legend="P10")
     p.segment(p90, -4, p90, np.max(x_y_values), line_dash='dashed',
-              line_width=2, line_color='darkred', legend="P90")
+              line_width=2, line_color='darkred', legend=f"P90 = {int(p90)}")
     p.segment(p50, -4, p50, np.max(x_y_values), line_dash='dashed',
-              line_width=2, line_color='blue', legend="P50")
+              line_width=2, line_color='blue', legend=f"P50 = {int(p50)}")
     p.segment(p10, -4, p10, np.max(x_y_values), line_dash='dashed',
-              line_width=2, line_color='red', legend="P10")
+              line_width=2, line_color='red', legend=f"P10 = {int(p10)}")
+    
+    # Find min for x axis
+    x_min = int(np.log10(np.min(input_data)))
+    power_of_10 = 10**(x_min)
 
     # Plot Styling
-    p.x_range.start = 1
+    p.x_range.start = power_of_10
     p.y_range.start = -3
-    p.legend.location = "center_right"
+    p.legend.location = "top_left"
     p.legend.background_fill_color = "#fefefe"
     p.xaxis.axis_label = x_label
     p.yaxis.axis_label = 'Z'
     p.left[0].formatter.use_scientific = False
     p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
     p.yaxis.visible = False
-    p.title.text = title + \
-        " & (P90: {}, P50: {}, P10: {})".format(int(p90), int(p50), int(p10))
+    p.title.text = title
     p.title.align = 'center'
     p.legend.click_policy = "mute"
 
@@ -173,9 +177,8 @@ def make_plot_pdf(title, hist, edges, x, pdf, x_label):
     p.yaxis.axis_label = 'Pr(x)'
     p.grid.grid_line_color = "white"
     p.left[0].formatter.use_scientific = False
-    p.xaxis[0].formatter.use_scientific = False
-    p.title.text = title + \
-        " & (P90: {}, P50: {}, P10: {})".format(int(p90), int(p50), int(p10))
+    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
+    p.title.text = title
     p.title.align = 'center'
 
     return p
@@ -201,11 +204,11 @@ pdf = 1/(x * sigma * np.sqrt(2*np.pi)) * \
 cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
 mean = np.exp(mu + 0.5*(sigma**2))
 # %%
-plot_cdf = make_plot_cdf("Log Normal Distribution (n= {}, mean={}, σ={})".format(round(len(
+plot_cdf = make_plot_cdf("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(round(len(
     input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
-plot_pdf = make_plot_pdf("Log Normal Distribution (n= {}, mean={}, σ={})".format(round(
+plot_pdf = make_plot_pdf("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(round(
     len(input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
-plot_dist = make_plot_probit("Log Normal Distribution (n= {}, mean={}, σ={})".format(
+plot_dist = make_plot_probit("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(
     round(len(input_data), 2), round(mean), round(sigma, 2)), input_data, 'Cum MBO')
 # %%
 show(plot_cdf)
