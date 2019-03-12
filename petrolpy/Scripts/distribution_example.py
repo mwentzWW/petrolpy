@@ -61,7 +61,8 @@ def make_plot_probit(title, input_data, x_label):
     ranks = np.empty_like(input_data_log_sorted)
     ranks[input_data_log_sorted] = np.arange(len(input_data_log))
     
-    input_data_log_perc = [(x + 1)/(len(input_data_log_sorted))
+    # Add 1 to length of data because norm._ppf(1) is infinite, which will occur for highest ranked value
+    input_data_log_perc = [(x + 1)/(len(input_data_log_sorted) + 1)
                            for x in ranks]
     input_data_y_values = norm._ppf(input_data_log_perc)
 
@@ -119,7 +120,7 @@ def make_plot_probit(title, input_data, x_label):
     p.yaxis.visible = False
     p.title.text = title
     p.title.align = 'center'
-    p.legend.click_policy = "mute"
+    p.legend.click_policy = "hide"
 
     return p
 
@@ -206,11 +207,11 @@ cdf = (1+scipy.special.erf((np.log(x)-mu)/(np.sqrt(2)*sigma)))/2
 mean = np.exp(mu + 0.5*(sigma**2))
 # %%
 plot_cdf = make_plot_cdf("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(round(len(
-    input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
+    input_data), 2), int(mean), round(sigma, 2)), hist, edges, x, pdf, cdf, 'Cum MBO')
 plot_pdf = make_plot_pdf("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(round(
-    len(input_data), 2), round(mean), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
+    len(input_data), 2), int(mean), round(sigma, 2)), hist, edges, x, pdf, 'Cum MBO')
 plot_dist = make_plot_probit("Log Normal Distribution (n = {}, mean = {}, σ = {})".format(
-    round(len(input_data), 2), round(mean), round(sigma, 2)), input_data, 'Cum MBO')
+    round(len(input_data), 2), int(mean), round(sigma, 2)), input_data, 'Cum MBO')
 # %%
 show(plot_cdf)
 # %%
