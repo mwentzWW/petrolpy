@@ -7,7 +7,7 @@ import scipy.special
 from bokeh.layouts import gridplot
 from bokeh.io import show, output_notebook
 from bokeh.plotting import figure
-from bokeh.models import BoxAnnotation, HoverTool, ColumnDataSource, PrintfTickFormatter
+from bokeh.models import BoxAnnotation, HoverTool, ColumnDataSource, NumeralTickFormatter
 from scipy.stats import lognorm, norm
 # %%
 # Bokeh output to notebook setting
@@ -36,7 +36,7 @@ def make_plot_cdf(title, hist, edges, x, pdf, cdf, x_label):
     p.yaxis.axis_label = 'Pr(x)'
     p.grid.grid_line_color = "white"
     p.left[0].formatter.use_scientific = False
-    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
+    p.xaxis[0].formatter = NumeralTickFormatter(format="0,0")
 
     return p
 
@@ -116,7 +116,7 @@ def make_plot_probit(title, input_data, x_label):
     p.xaxis.axis_label = x_label
     p.yaxis.axis_label = 'Z'
     p.left[0].formatter.use_scientific = False
-    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
+    p.xaxis[0].formatter = NumeralTickFormatter(format="0,0")
     p.yaxis.visible = False
     p.title.text = title
     p.title.align = 'center'
@@ -179,7 +179,7 @@ def make_plot_pdf(title, hist, edges, x, pdf, x_label):
     p.yaxis.axis_label = 'Pr(x)'
     p.grid.grid_line_color = "white"
     p.left[0].formatter.use_scientific = False
-    p.xaxis[0].formatter = PrintfTickFormatter(format="%i")
+    p.xaxis[0].formatter = NumeralTickFormatter(format="0,0")
     p.title.text = title
     p.title.align = 'center'
 
