@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import scipy.special
 from bokeh.layouts import gridplot
-from bokeh.io import show, output_notebook
+from bokeh.io import show, output_notebook, save, output_file
 from bokeh.plotting import figure
 from bokeh.models import BoxAnnotation, HoverTool, ColumnDataSource, NumeralTickFormatter
 from scipy.stats import lognorm, norm
@@ -215,8 +215,12 @@ plot_dist = make_plot_probit("Log Normal Distribution (n = {}, mean = {}, σ = {
 # %%
 show(plot_cdf)
 # %%
+#output_file("plot_pdf.html")
+#save(plot_pdf)
 show(plot_pdf)
 # %%
+#output_file("plot_dist.html")
+#save(plot_dist)
 show(plot_dist)
 # %%
 # P50 value
