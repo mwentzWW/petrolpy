@@ -15,7 +15,7 @@ You can run the notebooks by clicking the "launch binder" button above. The requ
 * Log Normal Distribution Probability Density Function from data (EUR Example)
 ![alt text](petrolpy/Examples/Example_plots/pdf_example_output.png "PDF Plot")
 * Log Normal Distribution Probit Plot (EUR Example)
-![alt text](petrolpy/Examples/Example_plots/probit_example_output.png "Probit Plot)
+![alt text](petrolpy/Examples/Example_plots/probit_example_output.png "Probit Plot")
 
 ## Next on the list
 
