@@ -6,9 +6,3 @@ This tool is meant to provide decline curve analysis and economics given well pr
 * <http://www.fekete.com/SAN/WebHelp/FeketeHarmony/Harmony_WebHelp/Content/HTML_Files/Reference_Material/Analysis_Method_Theory/Traditional_Decline_Theory.htm>
 * <https://www.spec2000.net/16-decline.htm>
 ---
-
-## Plan
-
-* First create it for one well
-* Need the capability to normlize the well data (measure production by days online, instead of by date)
-* Work on leases and field analysis next
