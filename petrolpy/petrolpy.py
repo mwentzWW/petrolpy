@@ -24,16 +24,16 @@ def fluid_saturation(vol_fluid=50, vol_pore=100):
 
 
 def porosity_by_densitylog(den_matrix=2.654, den_fluid=1.1, den_bulk=2.0):
-    """Returns the porosity given the matrix density, fluid density, and bulk density 
-    from a density log. Default values are in g/cc. Quartz density ~ 2.654, 
-    Calcite density ~ 2.710, Dolomite density ~ 2.870, fresh water density ~ 1.0, 
+    """Returns the porosity given the matrix density, fluid density, and bulk density
+    from a density log. Default values are in g/cc. Quartz density ~ 2.654,
+    Calcite density ~ 2.710, Dolomite density ~ 2.870, fresh water density ~ 1.0,
     salt water density ~ 1.146 depending on location, oil density < 1.0 ~ 0.850"""
     return (den_matrix-den_bulk)/(den_matrix-den_fluid)
 
 
 def porosity_by_soniclog(delt_log=144, delt_matrix=55.5, delt_fluid=189):
-    """Returns the porosity given the average delta t (micro-sec/ft) of an interval, 
-    fluid delta t, and the matrix delta t. The fluid is usually mud filtrate (189 micro-sec/ft). 
+    """Returns the porosity given the average delta t (micro-sec/ft) of an interval,
+    fluid delta t, and the matrix delta t. The fluid is usually mud filtrate (189 micro-sec/ft).
     Sandstone delta t ~ 55.5 or 51.0, Limestone delta t ~ 47.5, Dolomite delta t ~ 43.5."""
     return (delt_log-delt_matrix)/(delt_fluid-delt_matrix)
 
@@ -56,8 +56,8 @@ def mcf_to_boe(mcf=0, conversion_factor=6):
 
 
 def hyperbolic_type_curve(b_factor=0.8, initial_prod=0, di_factor=0.15, time=10):
-    """Creates a type curve using Arp's equation for hyperbolic decline. Make sure the units for production and time are the same.
-    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
+    """Creates a type curve using Arp's equation for hyperbolic decline. Make sure the units for di and time are the same.
+    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function
     returns the type curve as a list."""
     production = []
     for x in range(0, time + 1):
@@ -68,7 +68,7 @@ def hyperbolic_type_curve(b_factor=0.8, initial_prod=0, di_factor=0.15, time=10)
 
 def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
     """Creates a type curve using Arp's equation for exponential decline. Make sure the units for production and time are the same.
-    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function 
+    The input for time is how long you want the type curve to estimate for, for example 1 year or 10 years. The function
     returns the type curve as a list."""
     production = []
     for x in range(0, time + 1):
@@ -78,7 +78,7 @@ def exponential_type_curve(initial_prod=0, di_factor=0.15, time=10):
 
 
 def calc_gas_vol_factor(z_value=1.0,temp=193, pressure=500):
-    """Calculates the gas formation volume factor Bg from the gas compressibility factor z (0.25 up to 1.1), the reservoir temperature (F), 
+    """Calculates the gas formation volume factor Bg from the gas compressibility factor z (0.25 up to 1.1), the reservoir temperature (F),
     and the reservoir pressure (psia). The calculated Bg units are rcf/scf"""
     temp_rankin = temp + 459.67
     bg = 0.0282793*((z_value*temp_rankin)/pressure)
@@ -110,7 +110,7 @@ class Well(object):
     def __init__(self, well_name, well_api):
         self.name = well_name
         self.api = well_api
-    
+
     def __repr__(self):
         return f"{self.name}, {self.api}"
 
