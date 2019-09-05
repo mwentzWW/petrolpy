@@ -16,8 +16,3 @@ You can run the notebooks by clicking the "launch binder" button above. The requ
 ![alt text](petrolpy/Examples/Example_plots/pdf_example_output.png "PDF Plot")
 * Log Normal Distribution Probit Plot (EUR Example)
 ![alt text](petrolpy/Examples/Example_plots/probit_example_output.png "Probit Plot")
-
-## Next on the list
-
-* Create a jupyter notebook to import production data and fit a decline curve using bokeh instead of matplotlib
-* Improve drainage radius scripts by adding a better CLI and use distributions instead of sensitivies
